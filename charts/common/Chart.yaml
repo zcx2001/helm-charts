@@ -1,0 +1,13 @@
+apiVersion: v2
+# chart名称
+name: common
+# chart的描述
+description: A Helm Common Chart
+
+# chart类型 application 和 library
+type: library
+
+# chart 版本（语义化）
+version: 0.1.0
+
+
