@@ -10,4 +10,19 @@ entries:
     urls:
     - https://github.com/zcx2001/helm-charts/releases/download/common-0.1.0/common-0.1.0.tgz
     version: 0.1.0
-generated: "2023-07-30T12:35:11.191924919Z"
+  phddns:
+  - apiVersion: v2
+    appVersion: 5.2.0
+    created: "2023-07-30T12:36:46.618007374Z"
+    dependencies:
+    - name: common
+      repository: https://zcx2001.github.io/helm-charts/
+      version: 0.1.0
+    description: 花生壳客户端
+    digest: cce16044c15eaa7e4267fabfe5324cf2ca644be24e814e906d584f9c21d61b1d
+    name: phddns
+    type: application
+    urls:
+    - https://github.com/zcx2001/helm-charts/releases/download/phddns-0.1.0/phddns-0.1.0.tgz
+    version: 0.1.0
+generated: "2023-07-30T12:36:46.618011974Z"
