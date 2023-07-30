@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ .Release.Name }}-deploy
+  annotations:
+    kubernetes.io/change-cause: deploy phddns
+  labels:
+    {{- include "common.full-labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "common.labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "common.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: phddns
+          image: zcx2001/phddns:v1.0.3
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+          volumeMounts:
+            - name: config
+              mountPath: /etc/phddns
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-pvc

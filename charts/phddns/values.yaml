@@ -1,0 +1,3 @@
+pvc:
+  storageClassName: longhorn
+  storage: 1Mi
