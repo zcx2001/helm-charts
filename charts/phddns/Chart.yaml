@@ -10,7 +10,7 @@ description: 花生壳客户端
 type: application
 
 # chart 版本（语义化）
-version: 0.1.1
+version: 0.2.0
 
 # 依赖管理
 dependencies:
