@@ -8,6 +8,6 @@ description: A Helm Common Chart
 type: library
 
 # chart 版本（语义化）
-version: 0.1.0
+version: 1.0.0
 
 
