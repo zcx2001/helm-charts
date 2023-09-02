@@ -1,0 +1,6 @@
+dependencies:
+- name: common
+  repository: https://zcx2001.github.io/helm-charts/
+  version: 1.0.0
+digest: sha256:1af37e41dc6eaefa6a0ab4cb04d1311a36cae1ea856d29eda484b5aa53bbdf07
+generated: "2023-09-02T16:57:08.611877+08:00"

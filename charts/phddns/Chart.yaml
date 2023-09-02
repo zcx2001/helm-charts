@@ -10,12 +10,12 @@ description: 花生壳客户端
 type: application
 
 # chart 版本（语义化）
-version: 0.1.0
+version: 0.1.1
 
 # 依赖管理
 dependencies:
   - name: common
-    version: 0.1.0
+    version: 1.0.0
     repository: https://zcx2001.github.io/helm-charts/
 
 # 应用版本

@@ -2,20 +2,20 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: {{ .Release.Namespace }}
-  name: {{ .Release.Name }}-deploy
+  name: {{ include "common.names.fullname" . }}
   annotations:
     kubernetes.io/change-cause: deploy phddns
   labels:
-    {{- include "common.full-labels" . | nindent 4 }}
+    {{- include "common.labels.standard" . | nindent 4 }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      {{- include "common.labels" . | nindent 6 }}
+      {{- include "common.labels.matchLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "common.labels" . | nindent 8 }}
+        {{- include "common.labels.matchLabels" . | nindent 8 }}
     spec:
       containers:
         - name: phddns
@@ -29,4 +29,4 @@ spec:
       volumes:
         - name: config
           persistentVolumeClaim:
-            claimName: {{ .Release.Name }}-pvc
+            claimName: {{ include "common.names.fullname" . }}
