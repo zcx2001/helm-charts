@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ include "common.names.fullname" . }}
+  annotations:
+    kubernetes.io/change-cause: deploy redis
+  labels:
+    {{- include "common.labels.standard" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "common.labels.matchLabels" . | nindent 6 }}
+  serviceName: "{{ include "common.names.fullname" . }}-headless"
+  template:
+    metadata:
+      labels:
+        {{- include "common.labels.matchLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: redis
+          image: redis:6.0.20-alpine
+          env:
+            - name: TZ
+              value: {{ .Values.config.timezone }}
+          args:
+            - /usr/local/etc/redis/redis.conf
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - name: redis-config
+              mountPath: /usr/local/etc/redis
+              readOnly: true
+      volumes:
+        - name: redis-config
+          configMap:
+            name: {{ include "common.names.fullname" . }}
+            items:
+              - key: "redis.conf"
+                path: "redis.conf"
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: {{ .Values.pvc.storageClassName }}
+        resources:
+          requests:
+            storage: {{ .Values.pvc.storage }}

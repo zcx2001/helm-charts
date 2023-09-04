@@ -1,0 +1,16 @@
+replicaCount: 1
+
+auth:
+  password: 123456
+
+config:
+  timezone: Asia/Shanghai
+
+service:
+  type: ClusterIP
+  # type: NodePort
+  # nodePort: 30013
+
+pvc:
+  storageClassName: longhorn
+  storage: 5Gi

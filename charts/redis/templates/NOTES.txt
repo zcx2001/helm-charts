@@ -1,0 +1,3 @@
+redis has been successfully installed
+password: {{ .Values.auth.password }}
+service: {{ include "common.names.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local
