@@ -1,0 +1,4 @@
+mongodb has been successfully installed
+username: {{ .Values.auth.rootUsername }}
+password: {{ .Values.auth.rootPassword }}
+service: {{ include "common.names.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local

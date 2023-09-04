@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ include "common.names.fullname" . }}
+  annotations:
+    kubernetes.io/change-cause: deploy mongodb
+  labels:
+    {{- include "common.labels.standard" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "common.labels.matchLabels" . | nindent 6 }}
+  serviceName: "{{ include "common.names.fullname" . }}-headless"
+  template:
+    metadata:
+      labels:
+        {{- include "common.labels.matchLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: mongo
+          image: mongodb/mongodb-community-server:7.0.0-ubuntu2204
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+            - name: MONGODB_INITDB_ROOT_USERNAME
+              value: {{ .Values.auth.rootUsername | quote }}
+            - name: MONGODB_INITDB_ROOT_PASSWORD
+              value: {{ .Values.auth.rootPassword | quote }}
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - name: data
+              mountPath: /data/db
+      securityContext:
+        fsGroup: 101
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: {{ .Values.pvc.storageClassName }}
+        resources:
+          requests:
+            storage: {{ .Values.pvc.storage }}

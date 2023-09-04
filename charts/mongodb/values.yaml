@@ -1,0 +1,14 @@
+replicaCount: 1
+
+auth:
+  rootUsername: mongo
+  rootPassword: 123456
+
+service:
+  type: ClusterIP
+  # type: NodePort
+  # nodePort: 30012
+
+pvc:
+  storageClassName: longhorn
+  storage: 5Gi
