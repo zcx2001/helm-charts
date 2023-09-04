@@ -2,6 +2,15 @@ apiVersion: v1
 entries:
   common:
   - apiVersion: v2
+    created: "2023-09-04T12:49:47.706618246Z"
+    description: A Helm Common Chart
+    digest: a4105a6de5dd61ab889e2ea1ed454da8810eaa3b7085a5e92d3e63083ee1b0a4
+    name: common
+    type: library
+    urls:
+    - https://github.com/zcx2001/helm-charts/releases/download/common-1.0.1/common-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
     created: "2023-09-02T08:49:39.063273748Z"
     description: A Helm Common Chart
     digest: 13abbb8a4a1070d43cc074d43b4e2c256933fc34cac1f43f6bf39b3a5897d05d
@@ -93,4 +102,4 @@ entries:
     urls:
     - https://github.com/zcx2001/helm-charts/releases/download/redis-0.1.0/redis-0.1.0.tgz
     version: 0.1.0
-generated: "2023-09-04T08:00:32.895022996Z"
+generated: "2023-09-04T12:49:47.706633646Z"
