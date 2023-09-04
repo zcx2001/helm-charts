@@ -19,6 +19,21 @@ entries:
     urls:
     - https://github.com/zcx2001/helm-charts/releases/download/common-0.1.0/common-0.1.0.tgz
     version: 0.1.0
+  mongodb:
+  - apiVersion: v2
+    appVersion: 7.0.0
+    created: "2023-09-04T07:57:32.787617444Z"
+    dependencies:
+    - name: common
+      repository: https://zcx2001.github.io/helm-charts/
+      version: 1.0.0
+    description: mongodb服务
+    digest: 16bf6839af9e8b10e9d58b2eecbf812ea22d72f0c9b0f83077039e2efbc80e0e
+    name: mongodb
+    type: application
+    urls:
+    - https://github.com/zcx2001/helm-charts/releases/download/mongodb-0.1.0/mongodb-0.1.0.tgz
+    version: 0.1.0
   mysql:
   - apiVersion: v2
     appVersion: 8.0.34
@@ -63,4 +78,4 @@ entries:
     urls:
     - https://github.com/zcx2001/helm-charts/releases/download/phddns-0.1.0/phddns-0.1.0.tgz
     version: 0.1.0
-generated: "2023-09-04T07:45:32.032363621Z"
+generated: "2023-09-04T07:57:32.787631745Z"
