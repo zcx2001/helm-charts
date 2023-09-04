@@ -78,4 +78,19 @@ entries:
     urls:
     - https://github.com/zcx2001/helm-charts/releases/download/phddns-0.1.0/phddns-0.1.0.tgz
     version: 0.1.0
-generated: "2023-09-04T07:57:32.787631745Z"
+  redis:
+  - apiVersion: v2
+    appVersion: 6.0.20
+    created: "2023-09-04T08:00:32.895013596Z"
+    dependencies:
+    - name: common
+      repository: https://zcx2001.github.io/helm-charts/
+      version: 1.0.0
+    description: redis服务
+    digest: 46a979a946fc49fdc20ca149a92293959ca1ec077c022148bec282fbd3eacab8
+    name: redis
+    type: application
+    urls:
+    - https://github.com/zcx2001/helm-charts/releases/download/redis-0.1.0/redis-0.1.0.tgz
+    version: 0.1.0
+generated: "2023-09-04T08:00:32.895022996Z"
