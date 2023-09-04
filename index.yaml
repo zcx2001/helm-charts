@@ -19,6 +19,21 @@ entries:
     urls:
     - https://github.com/zcx2001/helm-charts/releases/download/common-0.1.0/common-0.1.0.tgz
     version: 0.1.0
+  mysql:
+  - apiVersion: v2
+    appVersion: 8.0.34
+    created: "2023-09-04T07:45:32.03234892Z"
+    dependencies:
+    - name: common
+      repository: https://zcx2001.github.io/helm-charts/
+      version: 1.0.0
+    description: mysql服务
+    digest: 4a16836218ccb1796e2637da6e4cc07d0ee64a237339f7b209e1004281606904
+    name: mysql
+    type: application
+    urls:
+    - https://github.com/zcx2001/helm-charts/releases/download/mysql-0.1.0/mysql-0.1.0.tgz
+    version: 0.1.0
   phddns:
   - apiVersion: v2
     appVersion: 5.2.0
@@ -48,4 +63,4 @@ entries:
     urls:
     - https://github.com/zcx2001/helm-charts/releases/download/phddns-0.1.0/phddns-0.1.0.tgz
     version: 0.1.0
-generated: "2023-09-02T16:43:16.924963903Z"
+generated: "2023-09-04T07:45:32.032363621Z"
