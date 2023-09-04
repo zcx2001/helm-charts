@@ -1,0 +1,3 @@
+mysql has been successfully installed
+rootPassword: {{ .Values.auth.rootPassword }}
+service: {{ include "common.names.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local

@@ -1,0 +1,17 @@
+replicaCount: 1
+
+auth:
+  rootPassword: abc123
+
+config:
+  maxConnections: 400
+  timezone: Asia/Shanghai
+
+service:
+  type: ClusterIP
+  # type: NodePort
+  # nodePort: 30011
+
+pvc:
+  storageClassName: longhorn
+  storage: 5Gi

@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ include "common.names.fullname" . }}
+  annotations:
+    kubernetes.io/change-cause: deploy mysql
+  labels:
+    {{- include "common.labels.standard" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "common.labels.matchLabels" . | nindent 6 }}
+  serviceName: "{{ include "common.names.fullname" . }}-headless"
+  template:
+    metadata:
+      labels:
+        {{- include "common.labels.matchLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0.33
+          env:
+            - name: TZ
+              value: {{ .Values.config.timezone }}
+            - name: MYSQL_ROOT_PASSWORD
+              value: {{ .Values.auth.rootPassword | quote }}
+          args:
+            - --character-set-server=utf8mb4
+            - --collation-server=utf8mb4_0900_ai_ci
+            - --max-connections={{ .Values.config.maxConnections }}
+            - --lower-case-table-names=1
+            - --innodb-buffer-pool-size=80M
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/mysql
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: {{ .Values.pvc.storageClassName }}
+        resources:
+          requests:
+            storage: {{ .Values.pvc.storage }}
