@@ -6,6 +6,7 @@ auth:
 config:
   maxConnections: 400
   timezone: Asia/Shanghai
+  database: 
 
 service:
   type: ClusterIP

@@ -26,6 +26,10 @@ spec:
               value: {{ .Values.config.timezone }}
             - name: MYSQL_ROOT_PASSWORD
               value: {{ .Values.auth.rootPassword | quote }}
+            {{- if .Values.config.database }}
+            - name: MYSQL_DATABASE
+              value: {{ .Values.config.database  }}
+            {{- end }}
           args:
             - --character-set-server=utf8mb4
             - --collation-server=utf8mb4_0900_ai_ci
