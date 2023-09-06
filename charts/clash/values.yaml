@@ -1,0 +1,56 @@
+replicaCount: 1
+
+proxy:
+  nodePort: 30011
+
+ingress:
+  enabled: false 
+  host: # 推荐使用xxx.xxx.xxx.xxx.sslip.io
+
+# 默认情况下, Clash 将日志打印到 STDOUT
+# 日志级别: info / warning / error / debug / silent
+logLevel: error
+
+# RESTful API 密钥
+apiSecret: 
+
+# 代理信息
+proxies:
+  # - name: "trojan"
+  #   type: trojan
+  #   server: sample.com
+  #   port: 12345
+  #   password: sample
+
+  
+  # - name: "snell"
+  #   type: snell
+  #   server: sample.com
+  #   port: 12345
+  #   psk: sample
+  #   obfs-opts:
+  #     mode: http
+  #     host: bing.com
+
+# 代理分组信息
+proxyGroups:
+  # - name: Proxy
+  #   type: select
+  #   proxies:
+  #     - trojan
+  #     - snell
+
+# 规则信息(默认值，按需修改)
+rules:
+  - GEOIP,CN,DIRECT
+  - GEOIP,HK,DIRECT
+  - DOMAIN-SUFFIX,local,DIRECT
+  - IP-CIDR,127.0.0.0/8,DIRECT
+  - IP-CIDR,172.16.0.0/12,DIRECT
+  - IP-CIDR,192.168.0.0/16,DIRECT
+  - IP-CIDR,10.0.0.0/8,DIRECT
+  - IP-CIDR,17.0.0.0/8,DIRECT
+  - IP-CIDR,100.64.0.0/10,DIRECT
+  # FINAL would remove after prerelease
+  # you also can use `FINAL,Proxy` or `FINAL,,Proxy` now
+  - MATCH,Proxy

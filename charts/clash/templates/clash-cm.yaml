@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ include "common.names.fullname" . }}
+data:
+  config.yaml: |
+    mixed-port: 7890
+
+    allow-lan: true
+
+    mode: rule
+
+    log-level: {{ .Values.logLevel }}
+
+    external-controller: 0.0.0.0:9090
+
+    external-ui: /root/clash/ui
+
+    secret: {{ .Values.apiSecret | quote }}
+
+    dns:
+      enable: false
+
+    proxies:
+      {{- with .Values.proxies }}
+      {{- toYaml . | nindent 6 }}
+      {{- end }}
+
+    proxy-groups:
+      {{- with .Values.proxyGroups }}
+      {{- toYaml . | nindent 6 }}
+      {{- end }}
+
+    rules:
+      {{- with .Values.rules }}
+      {{- toYaml . | nindent 6 }}
+      {{- end }}

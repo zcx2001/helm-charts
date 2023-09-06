@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ include "common.names.fullname" . }}
+  annotations:
+    kubernetes.io/change-cause: deploy clash
+  labels:
+    {{- include "common.labels.standard" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "common.labels.matchLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "common.labels.matchLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: clash
+          image: zcx2001/clash:v1.0.0
+          imagePullPolicy: Always
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+          args:
+            - -f 
+            - /root/clash/config/config.yaml
+          ports:
+            - containerPort: 7890
+            - containerPort: 9090
+          volumeMounts:
+            - name: clash-config
+              mountPath: /root/clash/config
+              readOnly: true
+      volumes:
+        - name: clash-config
+          configMap:
+            name: {{ include "common.names.fullname" . }}
