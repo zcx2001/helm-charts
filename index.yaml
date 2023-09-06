@@ -1,5 +1,20 @@
 apiVersion: v1
 entries:
+  clash:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2023-09-06T15:06:15.599513975Z"
+    dependencies:
+    - name: common
+      repository: https://zcx2001.github.io/helm-charts/
+      version: 1.1.1
+    description: clash服务
+    digest: 7f3acc71faba47065987126ca6172d6f300afbdad1be4bfcd75b83757b9c317f
+    name: clash
+    type: application
+    urls:
+    - https://github.com/zcx2001/helm-charts/releases/download/clash-0.1.0/clash-0.1.0.tgz
+    version: 0.1.0
   common:
   - apiVersion: v2
     created: "2023-09-05T02:00:43.309415652Z"
@@ -125,4 +140,4 @@ entries:
     urls:
     - https://github.com/zcx2001/helm-charts/releases/download/redis-0.1.0/redis-0.1.0.tgz
     version: 0.1.0
-generated: "2023-09-05T02:00:43.309457653Z"
+generated: "2023-09-06T15:06:15.599531277Z"
