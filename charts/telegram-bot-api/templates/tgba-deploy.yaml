@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ include "common.names.fullname" . }}
+  labels:
+    {{- include "common.labels.standard" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "common.labels.matchLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/tgba-cm.yaml") . | sha256sum }}
+      labels:
+        {{- include "common.labels.matchLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: telegram-bot-api
+          image: zcx2001/telegram-bot-api:6.8-2
+          imagePullPolicy: Always
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+            - name: KUBE_IPV6_DISABLED
+              value: "1"
+          args:
+            {{- if .Values.proxy.enabled }}
+            - proxychains
+            {{- end }}
+            - ./telegram-bot-api
+            - --local
+            - --api-id
+            - {{ .Values.apiId | quote }}
+            - --api-hash
+            - {{ .Values.apiHash | quote }}
+            - -v
+            - {{ .Values.logLevel | quote }}
+          ports:
+            - containerPort: 8081
+          {{ if .Values.proxy.enabled -}}
+          volumeMounts:
+            - name: proxy-config
+              mountPath: /root/.proxychains
+              readOnly: true
+          {{- end }}
+      {{ if .Values.proxy.enabled -}}
+      volumes:
+        - name: proxy-config
+          configMap:
+            name: {{ include "common.names.fullname" . }}
+      {{- end }}

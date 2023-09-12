@@ -1,0 +1,22 @@
+replicaCount: 1
+
+apiId: #"00000000"
+apiHash: 
+
+# 日志输出级别：0、fatal errors，1、errors，2、warnings，3、info，4、debug，5、verbose bug，6-1023、更高级别的日志
+logLevel: 1
+
+proxy:
+  enabled: false
+  type: http
+  address: 
+  port: 
+
+ingress:
+  enabled: false 
+  host:  # 推荐使用xxx.xxx.xxx.xxx.sslip.io
+  
+service:
+  type: ClusterIP
+  # type: NodePort
+  # nodePort: 30013

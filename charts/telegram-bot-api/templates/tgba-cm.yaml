@@ -1,0 +1,22 @@
+{{- if .Values.proxy.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ include "common.names.fullname" . }}
+data:
+  proxychains.conf: |
+    strict_chain
+
+    quiet_mode
+
+    proxy_dns
+
+    remote_dns_subnet 224
+
+    tcp_read_time_out 15000
+    tcp_connect_time_out 8000
+
+    [ProxyList]
+    {{ .Values.proxy.type }}   {{ .Values.proxy.address }}   {{ .Values.proxy.port }}
+{{- end }}
