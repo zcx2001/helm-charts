@@ -157,6 +157,20 @@ entries:
   telegram-bot-api:
   - apiVersion: v2
     appVersion: "6.8"
+    created: "2023-10-09T12:57:18.24468375Z"
+    dependencies:
+    - name: common
+      repository: https://zcx2001.github.io/helm-charts/
+      version: 1.1.1
+    description: telegram bot api服务
+    digest: 2796d5871a751ff5fe96c9a362e5713d63dfc3fa6c522192a94630cba0677dcb
+    name: telegram-bot-api
+    type: application
+    urls:
+    - https://github.com/zcx2001/helm-charts/releases/download/telegram-bot-api-0.1.1/telegram-bot-api-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: "6.8"
     created: "2023-09-12T06:22:02.279048429Z"
     dependencies:
     - name: common
@@ -169,4 +183,4 @@ entries:
     urls:
     - https://github.com/zcx2001/helm-charts/releases/download/telegram-bot-api-0.1.0/telegram-bot-api-0.1.0.tgz
     version: 0.1.0
-generated: "2023-10-08T13:56:35.864633256Z"
+generated: "2023-10-09T12:57:18.24470915Z"
