@@ -52,6 +52,21 @@ entries:
     urls:
     - https://github.com/zcx2001/helm-charts/releases/download/common-0.1.0/common-0.1.0.tgz
     version: 0.1.0
+  frp:
+  - apiVersion: v2
+    appVersion: v0.52.1
+    created: "2023-10-17T02:58:16.14896182Z"
+    dependencies:
+    - name: common
+      repository: https://zcx2001.github.io/helm-charts/
+      version: 1.1.1
+    description: 简单、高效的内网穿透工具
+    digest: 365db6c612606c5745bfa5bac69c7f465de59e165e30be37266bcb8225fa52a4
+    name: frp
+    type: application
+    urls:
+    - https://github.com/zcx2001/helm-charts/releases/download/frp-0.1.1/frp-0.1.1.tgz
+    version: 0.1.1
   mongodb:
   - apiVersion: v2
     appVersion: 7.0.0
@@ -183,4 +198,4 @@ entries:
     urls:
     - https://github.com/zcx2001/helm-charts/releases/download/telegram-bot-api-0.1.0/telegram-bot-api-0.1.0.tgz
     version: 0.1.0
-generated: "2023-10-09T12:57:18.24470915Z"
+generated: "2023-10-17T02:58:16.148985021Z"
