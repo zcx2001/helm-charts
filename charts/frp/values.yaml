@@ -1,0 +1,12 @@
+serverAddr: 
+serverPort: 
+
+auth:
+  token: 
+
+frpc:
+  enabled: true
+  proxies: 
+  files:
+    # - name: filename
+    #   content: |

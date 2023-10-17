@@ -1,0 +1,22 @@
+apiVersion: v2
+
+# chart名称
+name: frp
+
+# chart的描述
+description: 简单、高效的内网穿透工具
+
+# chart类型 application 和 library
+type: application
+
+# chart 版本（语义化）
+version: 0.1.1
+
+# 依赖管理
+dependencies:
+  - name: common
+    version: 1.1.1
+    repository: https://zcx2001.github.io/helm-charts/
+    
+# 应用版本
+appVersion: "v0.52.1"

@@ -1,0 +1,43 @@
+{{- if .Values.frpc.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ include "common.names.fullname" . }}-frpc
+  labels:
+    {{- include "common.labels.standard" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "common.labels.matchLabels" . | nindent 6 }}
+      app: frpc
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/frpc-cm.yaml") . | sha256sum }}  
+      labels:
+        {{- include "common.labels.matchLabels" . | nindent 8 }}
+        app: frpc
+    spec:
+      containers:
+        - name: frpc
+          image: zcx2001/frp:{{ .Chart.AppVersion }}
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+          workingDir: /app
+          args:
+            - frpc
+            - -c
+            - /opt/frp/conf/frpc.toml
+          volumeMounts:
+            - name: frpc-config
+              mountPath: /opt/frp/conf/
+              readOnly: true
+      volumes:
+        - name: frpc-config
+          configMap:
+            name: {{ include "common.names.fullname" . }}-frpc
+{{- end }}

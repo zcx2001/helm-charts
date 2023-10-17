@@ -1,0 +1,19 @@
+{{- if .Values.frpc.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ include "common.names.fullname" . }}-frpc
+data:
+  frpc.toml: |
+    serverAddr = {{ .Values.serverAddr | quote }} 
+    serverPort = {{ .Values.serverPort }} 
+
+    auth.token = {{ .Values.auth.token | quote }} 
+    {{ .Values.frpc.proxies | nindent 4 }}
+
+  {{- range .Values.frpc.files }}
+  {{- .name | nindent 2}}: |
+  {{- .content | nindent 4}}
+  {{- end }}
+{{- end }}
