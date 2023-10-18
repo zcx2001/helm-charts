@@ -67,6 +67,21 @@ entries:
     urls:
     - https://github.com/zcx2001/helm-charts/releases/download/frp-0.1.1/frp-0.1.1.tgz
     version: 0.1.1
+  kkfileview:
+  - apiVersion: v2
+    appVersion: 4.1.0
+    created: "2023-10-18T05:55:29.368607256Z"
+    dependencies:
+    - name: common
+      repository: https://zcx2001.github.io/helm-charts/
+      version: 1.1.1
+    description: kkFileView为文件文档在线预览解决方案
+    digest: 3f984c5f38572d7f581321af44853b34df3f03decf400865c1f79378c7661ea2
+    name: kkfileview
+    type: application
+    urls:
+    - https://github.com/zcx2001/helm-charts/releases/download/kkfileview-0.1.1/kkfileview-0.1.1.tgz
+    version: 0.1.1
   mongodb:
   - apiVersion: v2
     appVersion: 7.0.0
@@ -198,4 +213,4 @@ entries:
     urls:
     - https://github.com/zcx2001/helm-charts/releases/download/telegram-bot-api-0.1.0/telegram-bot-api-0.1.0.tgz
     version: 0.1.0
-generated: "2023-10-17T02:58:16.148985021Z"
+generated: "2023-10-18T05:55:29.368634756Z"
