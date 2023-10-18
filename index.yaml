@@ -69,6 +69,20 @@ entries:
     version: 0.1.1
   kkfileview:
   - apiVersion: v2
+    appVersion: 4.3.0
+    created: "2023-10-18T07:48:23.097956821Z"
+    dependencies:
+    - name: common
+      repository: https://zcx2001.github.io/helm-charts/
+      version: 1.1.1
+    description: kkFileView为文件文档在线预览解决方案
+    digest: 35b660cc26d4286edb27d05515ddcfb789af049e60748ad37d8ee93b559cf0b4
+    name: kkfileview
+    type: application
+    urls:
+    - https://github.com/zcx2001/helm-charts/releases/download/kkfileview-0.1.2/kkfileview-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     appVersion: 4.1.0
     created: "2023-10-18T05:55:29.368607256Z"
     dependencies:
@@ -213,4 +227,4 @@ entries:
     urls:
     - https://github.com/zcx2001/helm-charts/releases/download/telegram-bot-api-0.1.0/telegram-bot-api-0.1.0.tgz
     version: 0.1.0
-generated: "2023-10-18T05:55:29.368634756Z"
+generated: "2023-10-18T07:48:23.097974521Z"
