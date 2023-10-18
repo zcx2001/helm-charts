@@ -1,0 +1,12 @@
+config:
+  # 提供预览服务的地址，默认从请求url读，如果使用nginx等反向代理，需要手动设置
+  baseUrl: 
+  # 信任站点，多个用','隔开，设置了之后，会限制只能预览来自信任站点列表的文件，默认不限制 
+  trustHost: 
+  # 是否禁用首页文件上传
+  fileUploadDisable: false
+  #水印内容 如需取消水印，内容设置为空即可
+  watermarkTxt: 
+
+ingress:
+  host: 

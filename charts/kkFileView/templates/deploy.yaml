@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ include "common.names.fullname" . }}
+  labels:
+    {{- include "common.labels.standard" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "common.labels.matchLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "common.labels.matchLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: kkfileview
+          image: keking/kkfileview:{{ .Chart.AppVersion }}
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+            {{- if .Values.config.baseUrl }}
+            - name: KK_BASE_URL
+              value: {{ .Values.config.baseUrl }}
+            {{- end }} 
+            {{- if .Values.config.trustHost }}
+            - name: KK_TRUST_HOST
+              value: {{ .Values.config.trustHost | quote }}
+            {{- end }} 
+            {{- if .Values.config.fileUploadEnabled }}
+            - name: KK_FILE_UPLOAD_ENABLED
+              value: {{ .Values.config.fileUploadEnabled | quote }}
+            {{- end }} 
+            {{- if .Values.config.watermarkTxt }}
+            - name: WATERMARK_TXT
+              value: {{ .Values.config.watermarkTxt | quote }}
+            {{- end }} 
+          ports:
+            - containerPort: 8012
