@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: kkfileview
-          image: keking/kkfileview:{{ .Chart.AppVersion }}
+          image: keking/kkfileview-jdk:{{ .Chart.AppVersion }}
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ

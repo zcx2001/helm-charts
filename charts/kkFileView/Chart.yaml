@@ -10,7 +10,7 @@ description: kkFileView为文件文档在线预览解决方案
 type: application
 
 # chart 版本（语义化）
-version: 0.1.1
+version: 0.1.2
 
 # 依赖管理
 dependencies:
@@ -19,4 +19,4 @@ dependencies:
     repository: https://zcx2001.github.io/helm-charts/
     
 # 应用版本
-appVersion: "4.1.0"
+appVersion: "4.3.0"
