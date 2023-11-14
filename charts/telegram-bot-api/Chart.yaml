@@ -10,7 +10,7 @@ description: telegram bot api服务
 type: application
 
 # chart 版本（语义化）
-version: 0.1.1
+version: 0.1.2
 
 # 依赖管理
 dependencies:
@@ -19,4 +19,4 @@ dependencies:
     repository: https://zcx2001.github.io/helm-charts/
     
 # 应用版本
-appVersion: "6.8"
+appVersion: "6.9.2"

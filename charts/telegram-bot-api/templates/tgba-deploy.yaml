@@ -19,8 +19,8 @@ spec:
     spec:
       containers:
         - name: telegram-bot-api
-          image: zcx2001/telegram-bot-api:6.8-2
-          imagePullPolicy: Always
+          image: zcx2001/telegram-bot-api:{{ .Chart.AppVersion }}
+          imagePullPolicy: IfNotPresent
           env:
             - name: TZ
               value: Asia/Shanghai
