@@ -1,0 +1,20 @@
+replicaCount: 1
+
+service: 
+  type: ClusterIP
+  # type: NodePort
+  # nodePort: 30013
+
+# 默认情况下, sing-box 将日志打印到 STDOUT
+# 日志等级，可选值：trace debug info warn error fatal panic。
+logLevel: error
+
+outbound:
+  type: "hysteria2"
+  server: 
+  server_port: 443
+  password: 
+  tls:
+    enabled: true
+    alpn: 
+      - "h3"

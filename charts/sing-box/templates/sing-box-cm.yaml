@@ -1,0 +1,173 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ include "common.names.fullname" . }}
+data:
+  config.json: |
+    {
+        "log": {
+            "level": "{{ .Values.logLevel }}",
+            "timestamp": true
+        },
+        "dns": {
+            "servers": [
+                {
+                    "tag": "dns_proxy",
+                    "address": "https://1.1.1.1/dns-query",
+                    "address_resolver": "dns_resolver",
+                    "strategy": "ipv4_only", 
+                    "detour": "proxy"
+                },
+                {
+                    "tag": "dns_direct",
+                    "address": "h3://dns.alidns.com/dns-query",
+                    "address_resolver": "dns_resolver",
+                    "strategy": "ipv4_only", 
+                    "detour": "direct"
+                },
+                {
+                    "tag": "dns_block",
+                    "address": "rcode://refused"
+                },
+                {
+                    "tag": "dns_resolver",
+                    "address": "223.5.5.5",
+                    "strategy": "ipv4_only",
+                    "detour": "direct"
+                }
+            ],
+            "rules": [
+                {
+                    "outbound": [
+                        "any"
+                    ],
+                    "server": "dns_resolver"
+                },
+                {
+                    "geosite": [
+                        "category-ads-all"
+                    ],
+                    "server": "dns_block",
+                    "disable_cache": true
+                },
+                {
+                    "geosite": [
+                        "geolocation-!cn"
+                    ],
+                    "server": "dns_proxy"
+                },
+                {
+                    "geosite": [
+                        "cn",
+                        "private"
+                    ],
+                    "server": "dns_direct"
+                }
+            ]
+        },
+        "route": {
+            "geoip": {
+                "download_url": "https://github.com/soffchen/sing-geoip/releases/latest/download/geoip.db",
+                "download_detour": "proxy"
+            },
+            "geosite": {
+                "download_url": "https://github.com/soffchen/sing-geosite/releases/latest/download/geosite.db",
+                "download_detour": "proxy"
+            },
+            "rules": [
+                {
+                    "protocol": "dns",
+                    "outbound": "dns-out"
+                },
+                {
+                    "protocol": [
+                        "quic"
+                    ],
+                    "outbound": "block"
+                },
+                {
+                    "type": "logical",
+                    "mode": "and",
+                    "rules": [
+                        {
+                            "geosite": [
+                                "geolocation-!cn"
+                            ]
+                        },
+                        {
+                            "geoip": [
+                                "cn"
+                            ],
+                            "invert": true
+                        }
+                    ],
+                    "outbound": "proxy"
+                },
+                {
+                    "type": "logical",
+                    "mode": "and",
+                    "rules": [
+                        {
+                            "geosite": [
+                                "cn"
+                            ]
+                        },
+                        {
+                            "geoip": [
+                                "cn"
+                            ]
+                        }
+                    ],
+                    "outbound": "direct"
+                },
+                {
+                    "geosite": [
+                        "private"
+                    ],
+                    "outbound": "direct"
+                },
+                {
+                    "geoip": [
+                        "cn",
+                        "private"
+                    ],
+                    "outbound": "direct"
+                }
+            ],
+            "final": "direct"
+        },
+        "inbounds": [
+            {
+                "type": "mixed",
+                "tag": "mixed-in",
+                "listen": "::",
+                "listen_port": 7890,
+                "sniff": true
+            }
+        ],
+        "outbounds": [
+            {{- $outbound := .Values.outbound -}}
+            {{- $_ := set $outbound "tag" "proxy" -}}
+            {{- toPrettyJson $outbound | nindent 12 }},
+            {
+                "type": "direct",
+                "tag": "direct"
+            },
+            {
+                "type": "block",
+                "tag": "block"
+            },
+            {
+                "type": "dns",
+                "tag": "dns-out"
+            }
+        ],
+        "ntp": {
+            "enabled": true,
+            "server": "time.apple.com",
+            "server_port": 123,
+            "interval": "30m",
+            "detour": "direct"
+        }
+    }

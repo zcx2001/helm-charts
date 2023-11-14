@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ include "common.names.fullname" . }}
+  labels:
+    {{- include "common.labels.standard" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "common.labels.matchLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/sing-box-cm.yaml") . | sha256sum }}
+      labels:
+        {{- include "common.labels.matchLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: sing-box
+          image: zcx2001/sing-box:v1.6.4
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+          args:
+            - run
+            - -D
+            - /var/lib/sing-box
+            - -C 
+            - /etc/sing-box/
+          ports:
+            - containerPort: 7890
+          volumeMounts:
+            - name: sing-box-config
+              mountPath: /etc/sing-box
+              readOnly: true
+      volumes:
+        - name: sing-box-config
+          configMap:
+            name: {{ include "common.names.fullname" . }}
