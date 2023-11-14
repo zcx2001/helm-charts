@@ -6,13 +6,23 @@ auth:
 config:
   maxConnections: 400
   timezone: Asia/Shanghai
+  expireLogsDays: 7
   database: 
 
-service:
+service: 
   type: ClusterIP
   # type: NodePort
   # nodePort: 30011
 
+backup:
+  enabled: false
+  schedule: "0 2 * * *"
+  saveFileNum: 5
+
 pvc:
-  storageClassName: longhorn
-  storage: 5Gi
+  data:
+    storageClassName: longhorn
+    storage: 5Gi
+  backup:
+    storageClassName: longhorn
+    storage: 15Gi

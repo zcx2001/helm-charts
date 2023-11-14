@@ -1,0 +1,52 @@
+{{- if .Values.backup.enabled -}}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ include "common.names.fullname" . }}-backup
+  labels:
+    {{- include "common.labels.standard" . | nindent 4 }}
+spec:
+  schedule: {{ .Values.backup.schedule | quote }}
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 4
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: backup-mysql
+              image: zcx2001/mysql-client:{{ .Chart.AppVersion }}
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: TZ
+                  value: {{ .Values.config.timezone }}
+                - name: host
+                  value: {{ include "common.names.fullname" . }}
+                - name: port
+                  value: "3306"
+                - name: dbfilepath
+                  value: "/backup" 
+                - name: dbSaveFileNum
+                  value: {{ .Values.backup.saveFileNum | quote }}
+                - name: USER
+                  value: "root" 
+                - name: MYSQL_PWD
+                  value: {{ .Values.auth.rootPassword | quote }}
+              command: 
+                - ./dbBackup.sh
+              workingDir: /script  
+              volumeMounts:
+                - name: backup
+                  mountPath: /backup  
+          volumes:
+            - name: backup
+              persistentVolumeClaim:
+                claimName: backup-{{ include "common.names.fullname" . }}
+          restartPolicy: Never
+          initContainers:
+            - name: check-mysql
+              image: busybox:1.36
+              command: ['sh', '-c', 'until nc  -zvw3 {{ include "common.names.fullname" . }} 3306; do echo waiting for mysql; sleep 2; done;']
+{{- end }}

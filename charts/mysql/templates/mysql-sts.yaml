@@ -3,8 +3,6 @@ kind: StatefulSet
 metadata:
   namespace: {{ .Release.Namespace }}
   name: {{ include "common.names.fullname" . }}
-  annotations:
-    kubernetes.io/change-cause: deploy mysql
   labels:
     {{- include "common.labels.standard" . | nindent 4 }}
 spec:
@@ -20,7 +18,8 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: mysql:8.0.34
+          image: mysql:{{ .Chart.AppVersion }}
+          imagePullPolicy: IfNotPresent
           env:
             - name: TZ
               value: {{ .Values.config.timezone }}
@@ -28,25 +27,37 @@ spec:
               value: {{ .Values.auth.rootPassword | quote }}
             {{- if .Values.config.database }}
             - name: MYSQL_DATABASE
-              value: {{ .Values.config.database  }}
+              value: {{ .Values.config.database }}
             {{- end }}
           args:
             - --character-set-server=utf8mb4
             - --collation-server=utf8mb4_0900_ai_ci
             - --max-connections={{ .Values.config.maxConnections }}
             - --lower-case-table-names=1
-            - --innodb-buffer-pool-size=80M
+            - --innodb-buffer-pool-size=512M
+            - --sync_binlog=0
+            - --expire-logs-days={{ .Values.config.expireLogsDays }}
           ports:
             - containerPort: 3306
           volumeMounts:
             - name: data
               mountPath: /var/lib/mysql
+            {{ if .Values.backup.enabled -}}  
+            - name: backup
+              mountPath: /backup  
+            {{- end }}
+      {{ if .Values.backup.enabled -}}        
+      volumes:
+        - name: backup
+          persistentVolumeClaim:
+            claimName: backup-{{ include "common.names.fullname" . }}
+      {{- end }}
   volumeClaimTemplates:
     - metadata:
         name: data
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: {{ .Values.pvc.storageClassName }}
+        storageClassName: {{ .Values.pvc.data.storageClassName }}
         resources:
           requests:
-            storage: {{ .Values.pvc.storage }}
+            storage: {{ .Values.pvc.data.storage }}

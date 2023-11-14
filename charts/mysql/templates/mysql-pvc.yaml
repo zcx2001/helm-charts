@@ -1,0 +1,16 @@
+{{- if .Values.backup.enabled -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: backup-{{ include "common.names.fullname" . }}
+  labels:
+    {{- include "common.labels.standard" . | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: {{ .Values.pvc.backup.storageClassName }}
+  resources:
+    requests:
+      storage: {{ .Values.pvc.backup.storage }}
+{{- end }}
