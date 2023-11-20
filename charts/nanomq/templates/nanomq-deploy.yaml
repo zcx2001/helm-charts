@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ include "common.names.fullname" . }}
+  labels:
+    {{- include "common.labels.standard" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "common.labels.matchLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/nanomq-cm.yaml") . | sha256sum }}
+      labels:
+        {{- include "common.labels.matchLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: nanomq
+          image: emqx/nanomq:{{ .Chart.AppVersion }}-slim
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+          args:
+            - --conf
+            - /etc/nanomq/nanomq.conf
+          ports:
+            - name: mqtt
+              containerPort: 1883
+          volumeMounts:
+            - name: nanomq-config
+              mountPath: /etc/nanomq
+              readOnly: true
+      volumes:
+        - name: nanomq-config
+          configMap:
+            name: {{ include "common.names.fullname" . }}

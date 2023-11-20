@@ -1,0 +1,17 @@
+replicaCount: 1
+
+service: 
+  type: ClusterIP
+  # type: NodePort
+  # nodePort: 
+
+users:
+  # - username: demo1
+  #   password: pwd123456
+
+  # - username: demo2
+  #   password: pwd123456
+
+acl:
+  # - data: '{"permit": "allow", "username": "demo1", "action": "pubsub", "topics": ["$SYS/#", "#"]}'
+  # - data: '{"permit": "allow", "username": "demo2", "action": "pubsub", "topics": ["#"]}'

@@ -1,0 +1,22 @@
+apiVersion: v2
+
+# chart名称
+name: nanomq
+
+# chart的描述
+description: nanomq服务
+
+# chart类型 application 和 library
+type: application
+
+# chart 版本（语义化）
+version: 0.1.0
+
+# 依赖管理
+dependencies:
+  - name: common
+    version: 1.1.1
+    repository: https://zcx2001.github.io/helm-charts/
+
+# 应用版本
+appVersion: "0.20.8"

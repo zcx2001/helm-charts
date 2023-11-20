@@ -1,0 +1,2 @@
+nanomq has been successfully installed
+service: {{ include "common.names.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local
