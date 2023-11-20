@@ -182,6 +182,21 @@ entries:
     urls:
     - https://github.com/zcx2001/helm-charts/releases/download/mysql-0.1.0/mysql-0.1.0.tgz
     version: 0.1.0
+  nanomq:
+  - apiVersion: v2
+    appVersion: 0.20.8
+    created: "2023-11-20T12:47:51.391826505Z"
+    dependencies:
+    - name: common
+      repository: https://zcx2001.github.io/helm-charts/
+      version: 1.1.1
+    description: nanomq服务
+    digest: 6f316f6049569fc06eb702c10d7447251edff0f12b716cefa2e93ee842aeca5c
+    name: nanomq
+    type: application
+    urls:
+    - https://github.com/zcx2001/helm-charts/releases/download/nanomq-0.1.0/nanomq-0.1.0.tgz
+    version: 0.1.0
   phddns:
   - apiVersion: v2
     appVersion: 5.2.0
@@ -298,4 +313,4 @@ entries:
     urls:
     - https://github.com/zcx2001/helm-charts/releases/download/telegram-bot-api-0.1.0/telegram-bot-api-0.1.0.tgz
     version: 0.1.0
-generated: "2023-11-14T13:58:21.08191591Z"
+generated: "2023-11-20T12:47:51.391878633Z"
