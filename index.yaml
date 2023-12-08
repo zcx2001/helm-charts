@@ -199,6 +199,20 @@ entries:
     version: 0.1.0
   phddns:
   - apiVersion: v2
+    appVersion: 5.3.0
+    created: "2023-12-08T06:47:54.439504003Z"
+    dependencies:
+    - name: common
+      repository: https://zcx2001.github.io/helm-charts/
+      version: 1.0.0
+    description: 花生壳客户端
+    digest: d078b51e1482f34c3884bf4e682d8810587a0c7b9905e9e8fa0a8931348c0813
+    name: phddns
+    type: application
+    urls:
+    - https://github.com/zcx2001/helm-charts/releases/download/phddns-0.2.2/phddns-0.2.2.tgz
+    version: 0.2.2
+  - apiVersion: v2
     appVersion: 5.2.0
     created: "2023-09-02T16:43:16.924953403Z"
     dependencies:
@@ -313,4 +327,4 @@ entries:
     urls:
     - https://github.com/zcx2001/helm-charts/releases/download/telegram-bot-api-0.1.0/telegram-bot-api-0.1.0.tgz
     version: 0.1.0
-generated: "2023-11-20T12:47:51.391878633Z"
+generated: "2023-12-08T06:47:54.439548025Z"
