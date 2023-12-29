@@ -257,6 +257,20 @@ entries:
     version: 0.1.0
   sing-box:
   - apiVersion: v2
+    appVersion: v1.7.6
+    created: "2023-12-29T06:38:19.999964129Z"
+    dependencies:
+    - name: common
+      repository: https://zcx2001.github.io/helm-charts/
+      version: 1.1.1
+    description: sing-box服务
+    digest: cda5f867a911296e48b17dd2445e9179f2b16913c1331a6b3eb0f180e4b82005
+    name: sing-box
+    type: application
+    urls:
+    - https://github.com/zcx2001/helm-charts/releases/download/sing-box-0.1.2/sing-box-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     appVersion: v1.6.4
     created: "2023-11-14T13:56:52.626075923Z"
     dependencies:
@@ -327,4 +341,4 @@ entries:
     urls:
     - https://github.com/zcx2001/helm-charts/releases/download/telegram-bot-api-0.1.0/telegram-bot-api-0.1.0.tgz
     version: 0.1.0
-generated: "2023-12-08T06:47:54.439548025Z"
+generated: "2023-12-29T06:38:20.000009163Z"
