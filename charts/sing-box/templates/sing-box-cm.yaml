@@ -16,134 +16,91 @@ data:
                     "tag": "dns_proxy",
                     "address": "https://1.1.1.1/dns-query",
                     "address_resolver": "dns_resolver",
-                    "strategy": "ipv4_only", 
+                    "strategy": "ipv4_only",
                     "detour": "proxy"
                 },
                 {
                     "tag": "dns_direct",
-                    "address": "h3://dns.alidns.com/dns-query",
+                    "address": "https://dns.alidns.com/dns-query",
                     "address_resolver": "dns_resolver",
-                    "strategy": "ipv4_only", 
+                    "strategy": "ipv4_only",
                     "detour": "direct"
-                },
-                {
-                    "tag": "dns_block",
-                    "address": "rcode://refused"
                 },
                 {
                     "tag": "dns_resolver",
                     "address": "223.5.5.5",
-                    "strategy": "ipv4_only",
                     "detour": "direct"
+                },
+                {
+                    "tag": "dns_block",
+                    "address": "rcode://success"
                 }
             ],
             "rules": [
                 {
-                    "outbound": [
-                        "any"
-                    ],
+                    "outbound": "any",
                     "server": "dns_resolver"
                 },
                 {
-                    "geosite": [
-                        "category-ads-all"
-                    ],
-                    "server": "dns_block",
-                    "disable_cache": true
-                },
-                {
-                    "geosite": [
-                        "geolocation-!cn"
-                    ],
+                    "rule_set": "geosite-geolocation-!cn",
                     "server": "dns_proxy"
-                },
-                {
-                    "geosite": [
-                        "cn",
-                        "private"
-                    ],
-                    "server": "dns_direct"
                 }
-            ]
+            ],
+            "final": "dns_direct"
         },
         "route": {
-            "geoip": {
-                "download_url": "https://github.com/soffchen/sing-geoip/releases/latest/download/geoip.db",
-                "download_detour": "proxy"
-            },
-            "geosite": {
-                "download_url": "https://github.com/soffchen/sing-geosite/releases/latest/download/geosite.db",
-                "download_detour": "proxy"
-            },
-            "rules": [
+            "rule_set": [
+                {
+                    "tag": "geosite-geolocation-!cn",
+                    "type": "remote",
+                    "format": "binary",
+                    "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-geolocation-!cn.srs",
+                    "download_detour": "proxy"
+                },
+                {
+                    "tag": "geoip-cn",
+                    "type": "remote",
+                    "format": "binary",
+                    "url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs",
+                    "download_detour": "proxy"
+                }
+                ],
+                "rules": [
                 {
                     "protocol": "dns",
                     "outbound": "dns-out"
                 },
                 {
-                    "protocol": [
-                        "quic"
-                    ],
-                    "outbound": "block"
-                },
-                {
                     "type": "logical",
                     "mode": "and",
                     "rules": [
-                        {
-                            "geosite": [
-                                "geolocation-!cn"
-                            ]
-                        },
-                        {
-                            "geoip": [
-                                "cn"
-                            ],
-                            "invert": true
-                        }
+                    {
+                        "rule_set": "geoip-cn",
+                        "invert": true
+                    },
+                    {
+                        "rule_set": "geosite-geolocation-!cn"
+                    }
                     ],
                     "outbound": "proxy"
                 },
                 {
-                    "type": "logical",
-                    "mode": "and",
-                    "rules": [
-                        {
-                            "geosite": [
-                                "cn"
-                            ]
-                        },
-                        {
-                            "geoip": [
-                                "cn"
-                            ]
-                        }
-                    ],
+                    "rule_set": "geoip-cn",
                     "outbound": "direct"
                 },
                 {
-                    "geosite": [
-                        "private"
-                    ],
-                    "outbound": "direct"
-                },
-                {
-                    "geoip": [
-                        "cn",
-                        "private"
-                    ],
+                    "ip_is_private": true,
                     "outbound": "direct"
                 }
             ],
-            "final": "direct"
+            "final": "direct",
+            "auto_detect_interface": true
         },
         "inbounds": [
             {
-                "type": "mixed",
-                "tag": "mixed-in",
-                "listen": "::",
-                "listen_port": 7890,
-                "sniff": true
+            "type": "mixed",
+            "listen": "::",
+            "listen_port": 7890
             }
         ],
         "outbounds": [
@@ -163,11 +120,10 @@ data:
                 "tag": "dns-out"
             }
         ],
-        "ntp": {
-            "enabled": true,
-            "server": "time.apple.com",
-            "server_port": 123,
-            "interval": "30m",
-            "detour": "direct"
+        "experimental": {
+            "cache_file": {
+                "enabled": true,
+                "path": "cache.db"
+            }
         }
     }
