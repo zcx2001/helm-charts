@@ -184,6 +184,20 @@ entries:
     version: 0.1.0
   nanomq:
   - apiVersion: v2
+    appVersion: 0.21.2
+    created: "2024-02-17T13:01:06.315794369Z"
+    dependencies:
+    - name: common
+      repository: https://zcx2001.github.io/helm-charts/
+      version: 1.1.1
+    description: nanomq服务
+    digest: aaa210ad68a280ebdef8313daf341155f199e61f2ca303792a35e58388ffd66c
+    name: nanomq
+    type: application
+    urls:
+    - https://github.com/zcx2001/helm-charts/releases/download/nanomq-0.1.1/nanomq-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     appVersion: 0.20.8
     created: "2023-11-20T12:47:51.391826505Z"
     dependencies:
@@ -383,4 +397,4 @@ entries:
     urls:
     - https://github.com/zcx2001/helm-charts/releases/download/telegram-bot-api-0.1.0/telegram-bot-api-0.1.0.tgz
     version: 0.1.0
-generated: "2024-01-24T01:26:45.860524861Z"
+generated: "2024-02-17T13:01:06.315853866Z"
