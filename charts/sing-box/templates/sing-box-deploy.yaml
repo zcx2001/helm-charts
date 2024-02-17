@@ -32,6 +32,7 @@ spec:
             - /etc/sing-box/
           ports:
             - containerPort: 7890
+            - containerPort: 9090
           volumeMounts:
             - name: sing-box-config
               mountPath: /etc/sing-box

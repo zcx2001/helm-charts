@@ -104,9 +104,18 @@ data:
             }
         ],
         "outbounds": [
-            {{- $outbound := .Values.outbound -}}
-            {{- $_ := set $outbound "tag" "proxy" -}}
-            {{- toPrettyJson $outbound | nindent 12 }},
+            {{- $tags := list -}}
+            {{- range .Values.outbound -}}
+            {{- $tags = append $tags .tag -}}
+            {{- toPrettyJson . | nindent 12 -}},
+            {{- end }}
+            {
+                "tag": "proxy",
+                "type": "selector",
+                "outbounds": {{ toJson $tags }},
+                "default": "{{ first $tags }}",
+                "interrupt_exist_connections": false
+            },
             {
                 "type": "direct",
                 "tag": "direct"
@@ -124,6 +133,10 @@ data:
             "cache_file": {
                 "enabled": true,
                 "path": "cache.db"
+            },
+            "clash_api": {
+            "external_controller": "0.0.0.0:9090",
+            "external_ui": "ui"
             }
         }
     }
