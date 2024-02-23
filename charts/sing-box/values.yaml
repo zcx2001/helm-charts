@@ -14,6 +14,9 @@ service:
 # 日志等级，可选值：trace debug info warn error fatal panic。
 logLevel: error
 
+# 自定义路由规则设计
+routeRules: 
+
 outbound:
   # - tag: ""
   #   type: "hysteria2"

@@ -64,8 +64,12 @@ data:
                     "url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs",
                     "download_detour": "proxy"
                 }
-                ],
-                "rules": [
+            ],
+            "rules": [
+                {{- if .Values.routeRules }}
+                {{- $routeRules := trim .Values.routeRules }}
+                {{- printf "%s," $routeRules | nindent 16 }}
+                {{- end }}
                 {
                     "protocol": "dns",
                     "outbound": "dns-out"
