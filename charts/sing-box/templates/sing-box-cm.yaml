@@ -139,8 +139,9 @@ data:
                 "path": "cache.db"
             },
             "clash_api": {
-            "external_controller": "0.0.0.0:9090",
-            "external_ui": "ui"
+                "external_controller": "0.0.0.0:9090",
+                "external_ui": "ui",
+                "external_ui_download_detour": "proxy"
             }
         }
     }

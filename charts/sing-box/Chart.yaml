@@ -10,7 +10,7 @@ description: sing-box服务
 type: application
 
 # chart 版本（语义化）
-version: 0.3.2
+version: 0.3.3
 
 # 依赖管理
 dependencies:
