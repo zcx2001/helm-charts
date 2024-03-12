@@ -35,7 +35,7 @@ spec:
             - --max-connections={{ .Values.config.maxConnections }}
             - --lower-case-table-names=1
             - --innodb-buffer-pool-size=512M
-            - --sync_binlog=0
+            - --sync-binlog=0
             - --expire-logs-days={{ .Values.config.expireLogsDays }}
           ports:
             - containerPort: 3306
