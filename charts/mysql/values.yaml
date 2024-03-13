@@ -3,13 +3,19 @@ replicaCount: 1
 auth:
   rootPassword: abc123
 
-config:
-  maxConnections: 400
-  timezone: Asia/Shanghai
-  expireLogsDays: 7
-  database: 
+mycnf: |
+  [mysqld]
+  max_connections=400
+  lower_case_table_names=1
+  innodb_buffer_pool_size=512M
+  sync_binlog=0
+  binlog_expire_logs_seconds=604800
 
-service: 
+config:
+  timezone: Asia/Shanghai
+  database:
+
+service:
   type: ClusterIP
   # type: NodePort
   # nodePort: 30011

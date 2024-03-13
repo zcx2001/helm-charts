@@ -10,7 +10,7 @@ description: mysql服务
 type: application
 
 # chart 版本（语义化）
-version: 0.1.5
+version: 0.2.0
 
 # 依赖管理
 dependencies:

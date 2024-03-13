@@ -13,6 +13,8 @@ spec:
   serviceName: "{{ include "common.names.fullname" . }}-headless"
   template:
     metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/mysql-cm.yaml") . | sha256sum }}
       labels:
         {{- include "common.labels.matchLabels" . | nindent 8 }}
     spec:
@@ -29,29 +31,27 @@ spec:
             - name: MYSQL_DATABASE
               value: {{ .Values.config.database }}
             {{- end }}
-          args:
-            - --character-set-server=utf8mb4
-            - --collation-server=utf8mb4_0900_ai_ci
-            - --max-connections={{ .Values.config.maxConnections }}
-            - --lower-case-table-names=1
-            - --innodb-buffer-pool-size=512M
-            - --sync-binlog=0
-            - --expire-logs-days={{ .Values.config.expireLogsDays }}
           ports:
             - containerPort: 3306
           volumeMounts:
+            - name: config
+              mountPath: /etc/mysql/conf.d
+              readOnly: true
             - name: data
               mountPath: /var/lib/mysql
-            {{ if .Values.backup.enabled -}}  
+            {{- if .Values.backup.enabled }}  
             - name: backup
               mountPath: /backup  
-            {{- end }}
-      {{ if .Values.backup.enabled -}}        
+            {{- end }}    
       volumes:
+        - name: config
+          configMap:
+            name: {{ include "common.names.fullname" . }}
+        {{- if .Values.backup.enabled }}   
         - name: backup
           persistentVolumeClaim:
             claimName: backup-{{ include "common.names.fullname" . }}
-      {{- end }}
+        {{- end }}
   volumeClaimTemplates:
     - metadata:
         name: data
