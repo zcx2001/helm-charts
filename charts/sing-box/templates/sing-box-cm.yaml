@@ -14,7 +14,7 @@ data:
             "servers": [
                 {
                     "tag": "dns_proxy",
-                    "address": "https://1.1.1.1/dns-query",
+                    "address": "https://8.8.8.8/dns-query",
                     "address_resolver": "dns_resolver",
                     "strategy": "ipv4_only",
                     "detour": "proxy"
@@ -44,6 +44,10 @@ data:
                 {
                     "rule_set": "geosite-geolocation-!cn",
                     "server": "dns_proxy"
+                },
+                {
+                    "rule_set": "geosite-cn",
+                    "server": "dns_direct"
                 }
             ],
             "final": "dns_direct"
@@ -62,6 +66,13 @@ data:
                     "type": "remote",
                     "format": "binary",
                     "url": "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs",
+                    "download_detour": "proxy"
+                },
+                {
+                    "tag": "geosite-cn",
+                    "type": "remote",
+                    "format": "binary",
+                    "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-cn.srs",
                     "download_detour": "proxy"
                 }
             ],
@@ -87,6 +98,19 @@ data:
                     }
                     ],
                     "outbound": "proxy"
+                },
+                {
+                    "type": "logical",
+                    "mode": "and",
+                    "rules": [
+                    {
+                        "rule_set": "geoip-cn"
+                    },
+                    {
+                        "rule_set": "geosite-cn"
+                    }
+                    ],
+                    "outbound": "direct"
                 },
                 {
                     "rule_set": "geoip-cn",
