@@ -160,7 +160,8 @@ data:
         "experimental": {
             "cache_file": {
                 "enabled": true,
-                "path": "cache.db"
+                "path": "cache.db",
+                "store_fakeip": true
             },
             "clash_api": {
                 "external_controller": "0.0.0.0:9090",
