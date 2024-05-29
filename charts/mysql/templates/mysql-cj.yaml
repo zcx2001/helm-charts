@@ -8,6 +8,7 @@ metadata:
     {{- include "common.labels.standard" . | nindent 4 }}
 spec:
   schedule: {{ .Values.backup.schedule | quote }}
+  timeZone: {{ .Values.config.timezone | quote }}
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 4
   concurrencyPolicy: Forbid
