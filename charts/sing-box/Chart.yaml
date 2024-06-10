@@ -10,7 +10,7 @@ description: sing-box服务
 type: application
 
 # chart 版本（语义化）
-version: 0.4.0
+version: 0.4.1
 
 # 依赖管理
 dependencies:
@@ -19,4 +19,4 @@ dependencies:
     repository: https://zcx2001.github.io/helm-charts/
     
 # 应用版本
-appVersion: "v1.9.0"
+appVersion: "v1.9.3"
