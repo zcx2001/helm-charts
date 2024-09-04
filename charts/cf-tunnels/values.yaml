@@ -1,0 +1,4 @@
+replicaCount: 1
+
+# cloudflare提供的token
+token: 
