@@ -156,6 +156,20 @@ entries:
     version: 0.1.0
   mysql:
   - apiVersion: v2
+    appVersion: 8.0.40
+    created: "2024-10-23T06:57:45.354550517Z"
+    dependencies:
+    - name: common
+      repository: https://zcx2001.github.io/helm-charts/
+      version: 1.1.1
+    description: mysql服务
+    digest: e5fa46198f7b852afec384975a7fa76b0313549e6336a66114a2716e6e4a86dc
+    name: mysql
+    type: application
+    urls:
+    - https://github.com/zcx2001/helm-charts/releases/download/mysql-0.2.4/mysql-0.2.4.tgz
+    version: 0.2.4
+  - apiVersion: v2
     appVersion: 8.0.39
     created: "2024-07-30T03:14:03.410815501Z"
     dependencies:
@@ -678,4 +692,4 @@ entries:
     urls:
     - https://github.com/zcx2001/helm-charts/releases/download/telegram-bot-api-0.1.0/telegram-bot-api-0.1.0.tgz
     version: 0.1.0
-generated: "2024-10-23T02:14:03.905717813Z"
+generated: "2024-10-23T06:57:45.354647939Z"
