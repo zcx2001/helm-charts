@@ -2,6 +2,20 @@ apiVersion: v1
 entries:
   cf-tunnels:
   - apiVersion: v2
+    appVersion: 2024.11.1
+    created: "2024-11-25T07:32:38.166850471Z"
+    dependencies:
+    - name: common
+      repository: https://zcx2001.github.io/helm-charts/
+      version: 1.1.1
+    description: cloudflare的tunnels服务
+    digest: 4064df4c42ee25102c28e6c7ec93680e7df4fd4936005c7a1ea87a3239514f35
+    name: cf-tunnels
+    type: application
+    urls:
+    - https://github.com/zcx2001/helm-charts/releases/download/cf-tunnels-0.1.1/cf-tunnels-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     appVersion: 2024.8.3
     created: "2024-09-04T06:03:14.152127912Z"
     dependencies:
@@ -692,4 +706,4 @@ entries:
     urls:
     - https://github.com/zcx2001/helm-charts/releases/download/telegram-bot-api-0.1.0/telegram-bot-api-0.1.0.tgz
     version: 0.1.0
-generated: "2024-10-23T06:57:45.354647939Z"
+generated: "2024-11-25T07:32:38.166949706Z"
